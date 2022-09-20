@@ -13,6 +13,5 @@ const usersRoutes = Router();
 // Não é preciso passar (request, response) só o método que tem dentro da controller
 usersRoutes.post('/', usersController.create)
 
-
 // Exportando
 module.exports = usersRoutes;
