@@ -27,7 +27,24 @@ class DishesController{
 
     }
 
-    
+    async show(request, response){
+        // pegando o id do prato que é passado como parâmetro
+        const { id } = request.params;
+
+        // Fazendo a busca na tabela dishes e pedindo para buscar somente o dado que tenha o ID que foi passado como parâmetro. 
+        const dish = await knex("dishes").where({ id }).first();
+
+        // Fazendo a busca dos ingredientes também. Passando a dish_id que é o parâmetro passado pela request e ordenado por ordem alfabética
+        const ingredients = await knex("ingredients").where({ dish_id: id }).orderBy("title");
+
+
+        // Fazendo o retorno
+        return response.status(200).json({
+            ...dish,
+            ingredients
+        });
+    }
+
 };
 
 // Exportando
