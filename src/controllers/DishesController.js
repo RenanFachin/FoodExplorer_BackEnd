@@ -45,12 +45,23 @@ class DishesController{
         });
     }
 
-    async delete (request, response){
+    async delete(request, response){
         const { id } = request.params;
 
         await knex("dishes").where({ id }).delete();
 
         return response.status(204).json();
+    }
+
+    async index(request, response){
+        // Fazendo a busca pelo nome do prato ou pelos ingredients existentes
+        const { title, ingredients } = request.query;
+
+        // Fazendo a busca do prato pelo nome
+        const dishes = await knex("dishes")
+        .whereLike("title", `%${title}%`)
+        
+        return response.json(dishes)
     }
 };
 
