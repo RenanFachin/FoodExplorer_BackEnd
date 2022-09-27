@@ -14,10 +14,10 @@ const dishesController = new DishesController();
 // Não é preciso passar (request, response) só o método que tem dentro da controller]
 
 dishesRoutes.get('/', dishesController.index);
-
 dishesRoutes.post('/', dishesController.create);
 dishesRoutes.get('/:id', dishesController.show);
 dishesRoutes.delete('/:id', dishesController.delete)
+dishesRoutes.put('/:id', dishesController.update)
 
 // Exportando
 module.exports = dishesRoutes;
