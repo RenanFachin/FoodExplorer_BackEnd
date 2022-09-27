@@ -32,9 +32,11 @@ Desenvolvimento de uma API que concentrará dados de usuários, pedidos e pratos
 ```bash
 # Faça o clone do repositório
 
-
 # Faça a instalação das depêndencias
   npm i
+
+# Rode as migration
+  npm run mrigrate
 
 # Executando o projeto no ambiente de desenvolvimento
   npm run dev
