@@ -14,6 +14,7 @@ const dishesController = new DishesController();
 // Não é preciso passar (request, response) só o método que tem dentro da controller
 dishesRoutes.post('/', dishesController.create);
 dishesRoutes.get('/:id', dishesController.show);
+dishesRoutes.delete('/:id', dishesController.delete)
 
 // Exportando
 module.exports = dishesRoutes;
