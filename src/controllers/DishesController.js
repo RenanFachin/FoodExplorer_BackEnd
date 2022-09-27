@@ -5,8 +5,16 @@ class DishesController{
     async create(request, response) {
     // Parâmetros enviados pelo body
         const {title, description, category, image, price, ingredients} = request.body;
+
+    // Conferência se o prato já existe no banco de dados
+        const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
+
+        if(checkDishAlreadyExistInDatabase){
+            throw new AppError("Este prato já existe em nossa database")
+        }
+
         
-        // Inserindo o prato e todos os seus dados
+    // Inserindo o prato e todos os seus dados
         const dish_id = await knex("dishes").insert({
             title,
             description,
@@ -15,7 +23,7 @@ class DishesController{
             price
         });
         
-        // Inserindo os ingredients passado no dish na tabela de ingredients
+    // Inserindo os ingredients passado no dish na tabela de ingredients
         const ingredientsInsert = ingredients.map(ingredient => {
             return{
                 name: ingredient,
@@ -23,7 +31,7 @@ class DishesController{
             }
         });
 
-        await knex("ingredients").insert(ingredientsInsert)
+    await knex("ingredients").insert(ingredientsInsert)
 
     return response.status(201).json()
 
@@ -121,7 +129,7 @@ class DishesController{
         await knex("dishes").where({ id }).update(dish)
         await knex("dishes").where({ id }).update("updated_at", knex.fn.now())
 
-        
+
         return response.json()
     }
 };
