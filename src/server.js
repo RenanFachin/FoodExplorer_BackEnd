@@ -2,6 +2,9 @@
 require('express-async-errors');
 const AppError = require('./utils/AppError')
 
+// Importando arquivo de configurações das imagens enviadas
+const uploadConfig = require('./configs/upload')
+
 // Importando conexão com banco de dados relacional
 const databaseMigrationsRun = require('./database/sqlite/migrations')
 
@@ -19,6 +22,10 @@ const app = express();
 
 // Atribuindo o tipo de dado que será enviado pelo body e as rotas que serão utilizadas
 app.use(express.json());
+
+// Buscando por arquivo estáticos 
+app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER))
+
 app.use(routes)
 
 
