@@ -4,7 +4,7 @@ const { verify } = require("jsonwebtoken");
 
 const AppError = require('../utils/AppError');
 
-async function ensureAuthenticated(request, response, next){
+function ensureAuthenticated(request, response, next){
     const authHeader = request.headers.authorization;
 
     // verificação a existencia do token
