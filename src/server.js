@@ -1,13 +1,16 @@
 // Tratamento de exceções
 require('express-async-errors');
-const AppError = require('./utils/AppError')
+const AppError = require('./utils/AppError');
 
 // Importando arquivo de configurações das imagens enviadas
-const uploadConfig = require('./configs/upload')
-const uploadAvatarConfig = require('./configs/uploadAvatar')
+const uploadConfig = require('./configs/upload');
+const uploadAvatarConfig = require('./configs/uploadAvatar');
+
+// Importando o CORS
+const cors = require("cors");
 
 // Importando conexão com banco de dados relacional
-const databaseMigrationsRun = require('./database/sqlite/migrations')
+const databaseMigrationsRun = require('./database/sqlite/migrations');
 
 // Importando bibliotecas
 const express = require("express");
@@ -16,7 +19,7 @@ const express = require("express");
 const routes = require('./routes');
 
 // Executando o banco de dados
-databaseMigrationsRun()
+databaseMigrationsRun();
 
 // Inicializando biblioteca
 const app = express();
@@ -29,6 +32,7 @@ app.use("/files/dishFiles", express.static(uploadConfig.UPLOADS_FOLDER))
 app.use("/files/avatarFiles", express.static(uploadAvatarConfig.UPLOADSAVATAR_FOLDER))
 
 app.use(routes)
+app.use(cors())
 
 
 app.use((error, request, response, next) => {
