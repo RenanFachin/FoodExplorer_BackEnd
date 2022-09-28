@@ -1,36 +1,41 @@
 const knex = require ('../database/knex');
 const AppError = require('../utils/AppError');
+const DiskStorage = require("../providers/DiskStorage")
 
 class DishesAdminController{
     async create(request, response) {
         // Parâmetros enviados pelo body
-            const {title, description, category, image, price, ingredients} = request.body;
+        const {title, description, category, image, price, ingredients} = request.body;
         
+        // Instanciando o diskstorage
+        const diskStorage = new DiskStorage
+
+        // Pegando o nome do arquivo
+        const dishFilename = request.file.filename;
     
         // Conferência se o prato já existe no banco de dados
-            const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
+        const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
     
-            if(checkDishAlreadyExistInDatabase){
-                throw new AppError("Este prato já existe em nossa database")
-            }
+        if(checkDishAlreadyExistInDatabase){
+            throw new AppError("Este prato já existe em nossa database")
+        }
     
-            
         // Inserindo o prato e todos os seus dados
-            const dish_id = await knex("dishes").insert({
-                title,
-                description,
-                category,
-                image,
-                price
-            });
+        const dish_id = await knex("dishes").insert({
+            title,
+            description,
+            category,
+            image,
+            price
+        });
             
         // Inserindo os ingredients passado no dish na tabela de ingredients
-            const ingredientsInsert = ingredients.map(ingredient => {
-                return{
-                    name: ingredient,
-                    dish_id
-                }
-            });
+        const ingredientsInsert = ingredients.map(ingredient => {
+            return{
+                name: ingredient,
+                dish_id
+            }
+        });
     
         await knex("ingredients").insert(ingredientsInsert)
     

@@ -1,18 +1,10 @@
 // Importando o knex para conexão com o db
 const knex = require("../database/knex");
 
-const DiskStorage = require("../providers/DiskStorage")
-
 class DishImageController{
     async update(request, response){
         // Pegando o id do prato que terá a sua imagem alterada
         const { id } = request.params;
-
-        // Instanciando o diskstorage
-        const diskStorage = new DiskStorage
-
-        // Pegando o nome do arquivo
-        const dishFilename = request.file.filename;
 
         // Buscando na tabeça dishes o id do prato
         const dish = await knex("dishes").where({ id }).first();

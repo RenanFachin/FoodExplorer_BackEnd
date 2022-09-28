@@ -4,6 +4,7 @@ const AppError = require('./utils/AppError')
 
 // Importando arquivo de configurações das imagens enviadas
 const uploadConfig = require('./configs/upload')
+const uploadAvatarConfig = require('./configs/uploadAvatar')
 
 // Importando conexão com banco de dados relacional
 const databaseMigrationsRun = require('./database/sqlite/migrations')
@@ -24,7 +25,8 @@ const app = express();
 app.use(express.json());
 
 // Buscando por arquivo estáticos 
-app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER))
+app.use("/files/dishFiles", express.static(uploadConfig.UPLOADS_FOLDER))
+app.use("/files/avatarFiles", express.static(uploadAvatarConfig.UPLOADSAVATAR_FOLDER))
 
 app.use(routes)
 
