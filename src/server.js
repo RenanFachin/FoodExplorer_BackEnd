@@ -7,7 +7,7 @@ const uploadConfig = require('./configs/upload');
 const uploadAvatarConfig = require('./configs/uploadAvatar');
 
 // Importando o CORS
-const cors = require("cors");
+const initCors = require("cors");
 
 // Importando conexão com banco de dados relacional
 const databaseMigrationsRun = require('./database/sqlite/migrations');
@@ -23,6 +23,8 @@ databaseMigrationsRun();
 
 // Inicializando biblioteca
 const app = express();
+// Inicilização do cors logo após o app
+app.use(initCors())
 
 // Atribuindo o tipo de dado que será enviado pelo body e as rotas que serão utilizadas
 app.use(express.json());
@@ -32,7 +34,7 @@ app.use("/files/dishFiles", express.static(uploadConfig.UPLOADS_FOLDER))
 app.use("/files/avatarFiles", express.static(uploadAvatarConfig.UPLOADSAVATAR_FOLDER))
 
 app.use(routes)
-app.use(cors())
+
 
 
 app.use((error, request, response, next) => {
