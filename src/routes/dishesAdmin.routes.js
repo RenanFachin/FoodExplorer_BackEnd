@@ -17,7 +17,7 @@ const dishesAdminController = new DishesAdminController();
 const dishImageController = new DishImageController()
 
 // ROTAS
-dishesAdminRoutes.post('/', dishesAdminController.create);
+dishesAdminRoutes.post('/', upload.single("image"), dishesAdminController.create);
 dishesAdminRoutes.delete('/:id', dishesAdminController.delete)
 dishesAdminRoutes.put('/:id', dishesAdminController.update)
 
