@@ -1,5 +1,7 @@
 // Tratamento de exceções
+
 require('express-async-errors');
+require("dotenv/config")
 const AppError = require('./utils/AppError');
 
 // Importando arquivo de configurações das imagens enviadas
@@ -55,7 +57,7 @@ app.use((error, request, response, next) => {
     })
 });
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
     console.log(`O servidor local com node está rodando na porta: ${PORT}`)
 });

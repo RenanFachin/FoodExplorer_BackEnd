@@ -32,11 +32,15 @@ Desenvolvimento de uma API que concentrará dados de usuários, pedidos e pratos
 ```bash
 # Faça o clone do repositório
 
+# Modifique as variáveis de ambiente em um arquivo .env
+  AUTH_SECRET=
+  PORT=
+
 # Faça a instalação das depêndencias
   npm i
 
 # Rode as migration
-  npm run mrigrate
+  npm run migrate
 
 # Executando o projeto no ambiente de desenvolvimento
   npm run dev
