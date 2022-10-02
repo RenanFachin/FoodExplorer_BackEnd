@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR,
     password VARCHAR,
     avatar VARCHAR NULL,
-    isAdmin BOOLEAN DEFAULT FALSE,
+    isAdmin BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

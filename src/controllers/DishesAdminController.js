@@ -1,18 +1,11 @@
 const knex = require ('../database/knex');
 const AppError = require('../utils/AppError');
-const DiskStorage = require("../providers/DiskStorage")
 
 class DishesAdminController{
     async create(request, response) {
         // Parâmetros enviados pelo body
-        const {title, description, category, image, price, ingredients} = request.body;
-        
-        // Instanciando o diskstorage
-        const diskStorage = new DiskStorage
+        const {title, description, category, price, ingredients} = request.body;
 
-        // Pegando o nome do arquivo
-        const dishFilename = request.file.filename;
-    
         // Conferência se o prato já existe no banco de dados
         const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
     
@@ -25,7 +18,6 @@ class DishesAdminController{
             title,
             description,
             category,
-            image,
             price
         });
             

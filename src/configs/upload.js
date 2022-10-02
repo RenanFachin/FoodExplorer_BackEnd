@@ -1,8 +1,6 @@
-const path = require('path');
-
-// Import de dependências
+const path = require("path");
 const multer = require("multer");
-const crypto = require("crypto")
+const crypto = require("crypto");
 
 // Locais onde vão ficar salvos os arquivos enviados
 const TMP_FOLDER = path.resolve(__dirname, "..", "..", "tmp");
